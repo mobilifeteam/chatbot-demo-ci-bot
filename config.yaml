@@ -1,0 +1,36 @@
+config:
+  bot_token: "<Your Token>"
+  storage_file: "storage.yaml"
+
+  extensions:
+   - ./extensions/weather_extension.js
+
+  weather_appid: "<Your Token>"
+  weather_country_code: th
+  weather_unit: metric
+
+knowledge:
+  greet:
+    pattern:
+      questions:
+      - "\\b(hi|hello)\\b"
+    responses:
+    - "<word.*:raw>"
+    dictionary:
+      word:
+      - "Hello!"
+      - "Hi!"
+      - "Yo!"
+      - "What's up!"
+
+  weather_lookup:
+    pattern:
+      questions:
+      - "\\bweather\\b.*\\b(in|around|at)\\b\\s+\\b(\\w+( \\w+)*)\\b"
+      - "\\b(does|will)\\b.*\\b(cold|hot|rain)\\b.*\\b(in|around|at)\\b\\s+\\b(\\w+( \\w+)*)\\b"
+      - "\\bhow\\b.*\\b(cold|hot)\\b.*\\b(in|around|at|is)\\b\\s+\\b(\\w+( \\w+)*)\\b"
+      captures:
+      - ["", "", "place"]
+      - ["", "", "", "", "place"]
+      - ["", "", "", "place"]
+    associate_sequence: weather
